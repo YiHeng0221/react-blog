@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# React 部落格
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 簡介
 
-## Available Scripts
+本部落格為 React hook 的練習作品，功能含有登入登出、文章顯示、新增文章及留言板，並使用 react-router-dom 來實作路由。
+留言板因 API 緣故無法實作單篇文章留言。
 
-In the project directory, you can run:
+## 專案架構
 
-### `yarn start`
+src
+App 管理路由、設置全域變數
+components 組件
+Navbar 導覽列
+Footer 置底訊息
+PostInfoCard 文章縮圖
+pages 頁面
+HomePage 首頁（顯示最新五篇）
+Posts 全文列表
+Post 單篇文章顯示
+NewPost 發布文章
+Login 登入頁面
+Board 留言板
+Register 註冊頁面
+utils 通用
+WebAPI.js 管理 API
+contexts.js 管理要提供的 Props
+auth.js 身份驗證
+constants 實作 RWD 使用的常數
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 功能介紹
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 文章顯示
 
-### `yarn test`
+API 取自 Lidemy 學生專用 API Server。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 單篇文章顯示（ Post ）
 
-### `yarn build`
+使用 react-router-dom 的 useParams 登功能來顯示單篇文章。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 首頁（ HomePage ）
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+顯示最前五篇文章的標題以及發文時間。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 全部文章（ Posts ）
 
-### `yarn eject`
+顯示所有文章的標題。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 導覽列（ Navbar ）
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+可讓使用者藉由點選進入該功能頁，由 react-router-dom 來實作路由，再使用 useLocation 來實作 active 狀態。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 登入登出（ Login & Logout ）
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+將 Session ID 存入 localStorage 的方式來進行身份驗證。登入之後 Sever 會回傳一個 JWT ( JSON Web Token )， Client 端將此 JWT 存入 localStorage。而要使用 API 時，會在 Header 中帶入此 JWT 一並傳入 Server，經過 Server 確認之後回傳使用者資訊。
 
-## Learn More
+使用 useContext 讓其他 Component 也能讀取 user 資料，並將 user 資料存於頂端的 App.js，並藉此讓其他子層 Components 藉此來判斷是否要顯示登入登出狀態各要顯示的畫面。 再使用 useEffect 於 render 之後驗證身份，以避免重新整理後會顯示錯誤的畫面。
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+登入後使用 useHistory 將使用者導入首頁。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 發文（ NewPost ）
 
-### Code Splitting
+### 留言板（ Board ）
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 註冊（ Register ）
