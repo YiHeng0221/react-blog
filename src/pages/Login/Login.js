@@ -7,13 +7,11 @@ import { AuthContext } from "../../utils/contexts";
 import { getMe, login } from "../../utils/WebAPI";
 
 const LoginContainer = styled.div`
-  position: relative;
-  min-width: 645px;
-  margin-bottom: 20px;
+  width: 100%;
+  margin: 0 auto;
   border: #bbbfca 1px solid;
   border-radius: 5px;
   box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3);
-  padding: 10px 30px;
   color: #495464;
   display: flex;
   justify-content: center;
@@ -21,7 +19,8 @@ const LoginContainer = styled.div`
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 300px;
+  max-width: 645px;
+  margin: 30px;
 `;
 const Input = styled.div`
   align-self: center;

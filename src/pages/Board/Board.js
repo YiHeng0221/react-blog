@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FadeIn from "react-fade-in";
 import styled from "styled-components";
 import { Loading } from "../../components";
+import { MEDIA_QUERY_MD } from "../../RWD/RWD";
+import { LoadingContext } from "../../utils/contexts";
 import { addNewComment, getComments } from "../../utils/WebAPI";
 
-const Root = styled.div`
-  margin: 2% auto;
-  max-width: 650px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
 const BoardForm = styled.form`
   position: relative;
-  max-width: 645px;
   margin: 20px;
   border: #bbbfca 1px solid;
   border-radius: 5px;
@@ -75,7 +69,6 @@ const BoardSubmitButton = styled.button`
 `;
 const Comment = styled.div`
   position: relative;
-  max-width: 645px;
   margin: 20px;
   border: #bbbfca 1px solid;
   border-radius: 5px;
@@ -88,6 +81,9 @@ const Comment = styled.div`
     background: #e8e8e8;
     color: #000000;
     transform: scale(1.2);
+  }
+  ${MEDIA_QUERY_MD} {
+    padding: 5px 15px;
   }
 `;
 
@@ -102,6 +98,13 @@ const CommentAvatar = styled.div`
   width: 50px;
   border-radius: 50%;
   background: #e4f0fb;
+  ${MEDIA_QUERY_MD} {
+    min-width: 25px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    margin-top: 0.5em;
+  }
 `;
 
 const CommentUserInfo = styled.div`
@@ -161,7 +164,7 @@ export default function Board() {
   const [nickname, setNickname] = useState("");
   const [createCommentErr, setCreateCommentErr] = useState(null);
   // avoid the unlimited submit
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
 
   // comment value
   const handleTextAreaChange = (e) => {
@@ -191,7 +194,9 @@ export default function Board() {
         }
         setComment("");
         setNickname("");
-        getComments();
+        getComments().then((data) => {
+          setComments(data);
+        });
       })
       .catch((err) => {
         setIsLoading(false);
@@ -200,11 +205,15 @@ export default function Board() {
 
   useEffect(() => {
     let isSubscribe = true;
+    setIsLoading(true);
     getComments()
       .then((data) => {
         if (isSubscribe) {
           setComments(data);
         }
+      })
+      .then(() => {
+        setIsLoading(false);
       })
       .catch((err) => {
         if (isSubscribe) {
@@ -212,47 +221,43 @@ export default function Board() {
         }
       });
     return () => (isSubscribe = false);
-  }, []);
+  }, [setIsLoading]);
   return (
-    <Root>
-      <FadeIn>
-        {isLoading && <Loading />}
-        <BoardForm onSubmit={handleFormSubmit}>
-          您的暱稱：
-          <BoardNickname
-            value={nickname}
-            onChange={handleUsernameChange}
-            onFocus={handleInputFocus}
-          />
-          您的留言：
-          <BoardTextarea
-            value={comment}
-            onChange={handleTextAreaChange}
-            onFocus={handleInputFocus}
-            rows="20"
-          />
-          {createCommentErr && (
-            <ErrorMessage>Your username or comment is empty!</ErrorMessage>
-          )}
-          <BoardSubmitButton>發送留言</BoardSubmitButton>
-        </BoardForm>
-        {CommentApiErr && (
-          <ErrorMessage>
-            Something went wrong.
-            <br />
-            {CommentApiErr.toString()}
-          </ErrorMessage>
+    <FadeIn>
+      {isLoading && <Loading />}
+      <BoardForm onSubmit={handleFormSubmit}>
+        您的暱稱：
+        <BoardNickname
+          value={nickname}
+          onChange={handleUsernameChange}
+          onFocus={handleInputFocus}
+        />
+        您的留言：
+        <BoardTextarea
+          value={comment}
+          onChange={handleTextAreaChange}
+          onFocus={handleInputFocus}
+          rows="20"
+        />
+        {createCommentErr && (
+          <ErrorMessage>Your username or comment is empty!</ErrorMessage>
         )}
-        {comments && comments.length === 0 && (
-          <h1>目前沒有留言，快來新增吧！</h1>
-        )}
-        <BoardListContainer>
-          {comments &&
-            comments.map((comment) => (
-              <Comments key={comment.id} comment={comment}></Comments>
-            ))}
-        </BoardListContainer>
-      </FadeIn>
-    </Root>
+        <BoardSubmitButton>發送留言</BoardSubmitButton>
+      </BoardForm>
+      {CommentApiErr && (
+        <ErrorMessage>
+          Something went wrong.
+          <br />
+          {CommentApiErr.toString()}
+        </ErrorMessage>
+      )}
+      {comments && comments.length === 0 && <h1>目前沒有留言，快來新增吧！</h1>}
+      <BoardListContainer>
+        {comments &&
+          comments.map((comment) => (
+            <Comments key={comment.id} comment={comment}></Comments>
+          ))}
+      </BoardListContainer>
+    </FadeIn>
   );
 }

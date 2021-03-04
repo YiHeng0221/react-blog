@@ -6,21 +6,11 @@ import { LoadingContext, PreviewContext } from "../../utils/contexts";
 import { addNewPost } from "../../utils/WebAPI";
 import { Loading, Preview } from "../../components";
 import FadeIn from "react-fade-in";
-
-const Root = styled.div`
-  position: relative;
-  flex: 1;
-  min-width: 645px;
-  max-width: 700px;
-  margin: auto;
-  border-radius: 5px;
-  padding: 10px 10px;
-`;
+import { MEDIA_QUERY_LG, MEDIA_QUERY_MD, MEDIA_QUERY_SM } from "../../RWD/RWD";
 
 const PostForm = styled.form`
   box-sizing: border-box;
   position: relative;
-  min-width: 645px;
   margin-bottom: 20px;
   border: #bbbfca 1px solid;
   border-radius: 5px;
@@ -30,6 +20,15 @@ const PostForm = styled.form`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  ${MEDIA_QUERY_LG} {
+    min-width: 768px;
+  }
+  ${MEDIA_QUERY_MD} {
+    min-width: 576px;
+  }
+  ${MEDIA_QUERY_SM} {
+    min-width: 350px;
+  }
 `;
 const Title = styled.div`
   align-self: center;
@@ -189,37 +188,35 @@ export default function NewPost() {
   }
 
   return (
-    <Root>
-      <FadeIn>
-        {isLoading && <Loading />}
-        <PreviewContext.Provider value={{ newPostTitle, newPostBody }}>
-          {previewClick && (
-            <PreviewBackground onClick={handlePreviewCancel}>
-              <Preview />
-            </PreviewBackground>
-          )}
-        </PreviewContext.Provider>
-        <PostForm onSubmit={handleSubmit}>
-          <Title>新增文章</Title>
-          <NewPostTitle
-            value={newPostTitle}
-            placeholder={errorMsg ? errorMsg : "請輸入標題"}
-            onChange={handleTitleChange}
-            onFocus={handleFocus}
-          />
-          <NewPostBody
-            value={newPostBody}
-            rows={30}
-            placeholder={errorMsg ? errorMsg : "請輸入內文"}
-            onChange={handleBodyChange}
-            onFocus={handleFocus}
-          ></NewPostBody>
-          <NewPostBTNs>
-            <NewPostSubmit>{isLoading ? "發布中" : "送出"}</NewPostSubmit>
-            <NewPostPreview onClick={handlePreviewClick}>預覽</NewPostPreview>
-          </NewPostBTNs>
-        </PostForm>
-      </FadeIn>
-    </Root>
+    <FadeIn>
+      {isLoading && <Loading />}
+      <PreviewContext.Provider value={{ newPostTitle, newPostBody }}>
+        {previewClick && (
+          <PreviewBackground onClick={handlePreviewCancel}>
+            <Preview />
+          </PreviewBackground>
+        )}
+      </PreviewContext.Provider>
+      <PostForm onSubmit={handleSubmit}>
+        <Title>新增文章</Title>
+        <NewPostTitle
+          value={newPostTitle}
+          placeholder={errorMsg ? errorMsg : "請輸入標題"}
+          onChange={handleTitleChange}
+          onFocus={handleFocus}
+        />
+        <NewPostBody
+          value={newPostBody}
+          rows={30}
+          placeholder={errorMsg ? errorMsg : "請輸入內文"}
+          onChange={handleBodyChange}
+          onFocus={handleFocus}
+        ></NewPostBody>
+        <NewPostBTNs>
+          <NewPostSubmit>{isLoading ? "發布中" : "送出"}</NewPostSubmit>
+          <NewPostPreview onClick={handlePreviewClick}>預覽</NewPostPreview>
+        </NewPostBTNs>
+      </PostForm>
+    </FadeIn>
   );
 }

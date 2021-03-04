@@ -14,9 +14,24 @@ import { Loading, Navbar } from "../components";
 import { AuthContext, LoadingContext } from "../utils/contexts";
 import { getMe } from "../utils/WebAPI";
 import { getAuthToken } from "../utils/auth";
+import { MEDIA_QUERY_MD, MEDIA_QUERY_SM } from "../RWD/RWD";
 
 const Root = styled.div`
-  padding-top: 128px;
+  margin: 5% auto;
+  box-model: border-box;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding-top: 64px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  ${MEDIA_QUERY_MD} {
+    padding-top: 128px;
+  }
+  ${MEDIA_QUERY_SM} {
+    padding-top: 100px;
+  }
 `;
 
 function App() {
@@ -38,9 +53,9 @@ function App() {
   }, []);
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <Root>
-        <Router>
-          <Navbar />
+      <Router>
+        <Navbar />
+        <Root>
           <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
             {isLoading && <Loading />}
             <Switch>
@@ -67,8 +82,8 @@ function App() {
               </Route>
             </Switch>
           </LoadingContext.Provider>
-        </Router>
-      </Root>
+        </Root>
+      </Router>
     </AuthContext.Provider>
   );
 }

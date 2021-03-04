@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../utils/contexts";
+import { MEDIA_QUERY_MD } from "../../RWD/RWD";
 
 const PostContainer = styled.div`
   position: relative;
@@ -31,12 +32,18 @@ const PostTitle = styled.div`
   margin-left: 0;
   margin-right: 0;
   font-weight: bold;
+  ${MEDIA_QUERY_MD} {
+    font-size: 0.8em;
+  }
 `;
 
 const PostInfo = styled.div`
   background: #495464;
   color: #f4f4f2;
   margin-bottom: 10px;
+  ${MEDIA_QUERY_MD} {
+    font-size: 0.5em;
+  }
 `;
 const PostDate = styled.div`
   margin: 0 20px;
@@ -60,6 +67,9 @@ const SmallPostTitle = styled(Link)`
   box-sizing: border-box;
   font-weight: bold;
   textdecoration: "none";
+  ${MEDIA_QUERY_MD} {
+    font-size: 0.5em;
+  }
 `;
 const DeleteButton = styled.div`
   min-width: 5%;
@@ -69,6 +79,9 @@ const DeleteButton = styled.div`
   padding: 0.5em;
   color: white;
   cursor: pointer;
+  ${MEDIA_QUERY_MD} {
+    font-size: 0.5em;
+  }
 `;
 
 export function SmallPostInfoCard({ post, handleDeletePost }) {

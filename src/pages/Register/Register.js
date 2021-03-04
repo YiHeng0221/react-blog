@@ -9,12 +9,11 @@ import { getMe, register } from "../../utils/WebAPI";
 
 const RegisterContainer = styled.div`
   position: relative;
-  min-width: 645px;
+  width: 100%;
   margin-bottom: 20px;
   border: #bbbfca 1px solid;
   border-radius: 5px;
   box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3);
-  padding: 10px 30px;
   color: #495464;
   display: flex;
   justify-content: center;
@@ -22,7 +21,8 @@ const RegisterContainer = styled.div`
 const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 300px;
+  max-width: 300px;
+  margin: 30px;
 `;
 const Input = styled.div`
   align-self: center;

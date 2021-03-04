@@ -4,23 +4,12 @@ import React, { useEffect, useState } from "react";
 import { getSinglePost } from "../../utils/WebAPI";
 import FadeIn from "react-fade-in";
 
-const Root = styled.div`
-  position: relative;
-  flex: 1;
-  min-width: 645px;
-  max-width: 700px;
-  margin: auto;
-  border-radius: 5px;
-  padding: 10px 10px;
-`;
-
 const ArticleContent = styled.div`
   line-height: 2em;
 `;
 
 const PostContainer = styled.div`
   position: relative;
-  min-width: 645px;
   margin-bottom: 20px;
   border: #bbbfca 1px solid;
   border-radius: 5px;
@@ -66,21 +55,19 @@ export default function Post() {
   }, [id]);
 
   return (
-    <Root>
-      <FadeIn>
-        {post.map((post) => (
-          <PostContainer key={id}>
-            <PostTitle>{post && post.title}</PostTitle>
-            <PostInfo>
-              <PostDate>
-                {post && new Date(post.createdAt).toLocaleString()}
-              </PostDate>
-              <PostClassify></PostClassify>
-            </PostInfo>
-            <ArticleContent>{post && post.body}</ArticleContent>
-          </PostContainer>
-        ))}
-      </FadeIn>
-    </Root>
+    <FadeIn>
+      {post.map((post) => (
+        <PostContainer key={id}>
+          <PostTitle>{post && post.title}</PostTitle>
+          <PostInfo>
+            <PostDate>
+              {post && new Date(post.createdAt).toLocaleString()}
+            </PostDate>
+            <PostClassify></PostClassify>
+          </PostInfo>
+          <ArticleContent>{post && post.body}</ArticleContent>
+        </PostContainer>
+      ))}
+    </FadeIn>
   );
 }
