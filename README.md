@@ -10,27 +10,49 @@
 ## 專案架構
 
 src
+
 ＿App 管理路由、設置全域變數
+
 ＿components 組件
+
 ＿＿Burger 漢堡表單
+
 ＿＿Footer 置底訊息
+
 ＿＿Loading 載入中畫面
+
 ＿＿Menu 直列表單
+
 ＿＿Navbar 導覽列
+
 ＿＿PostInfoCard 文章資訊
+
 ＿pages 頁面
+
 ＿＿Board 留言板
+
 ＿＿HomePage 首頁（顯示最新五篇）
+
 ＿＿Login 登入頁面
+
 ＿＿NewPost 發布文章
+
 ＿＿Post 單篇文章顯示
+
 ＿＿Posts 全文列表
+
 ＿＿Register 註冊頁面
+
 ＿RWD CSS 實作 RWD 使用的常數
+
 ＿utils 通用
+
 ＿＿auth.js 身份驗證
+
 ＿＿contexts.js 管理要提供的 Props
+
 ＿＿useRWD.js 實作 RWD 的 custom hook
+
 ＿＿WebAPI.js 管理 API
 
 ## 功能介紹
