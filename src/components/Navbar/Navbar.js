@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../utils/contexts";
 import { setAuthToken } from "../../utils/auth";
 import { MEDIA_QUERY_MD, MEDIA_QUERY_SM } from "../../RWD/RWD";
-import Burger from "../Burger";
+import Burger from "./Burger";
 import useRWD from "../../utils/useRWD";
 
 const Nav = styled.div`

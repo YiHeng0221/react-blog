@@ -15,6 +15,7 @@ import { AuthContext, LoadingContext } from "../utils/contexts";
 import { getMe } from "../utils/WebAPI";
 import { getAuthToken } from "../utils/auth";
 import { MEDIA_QUERY_MD, MEDIA_QUERY_SM } from "../RWD/RWD";
+import Footer from "../components/Footer";
 
 const Root = styled.div`
   margin: 5% auto;
@@ -82,6 +83,7 @@ function App() {
               </Route>
             </Switch>
           </LoadingContext.Provider>
+          <Footer />
         </Root>
       </Router>
     </AuthContext.Provider>

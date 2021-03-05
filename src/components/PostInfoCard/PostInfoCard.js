@@ -72,7 +72,11 @@ const SmallPostTitle = styled(Link)`
   }
 `;
 const DeleteButton = styled.div`
-  min-width: 5%;
+  min-width: 4em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1em;
   background-color: #f38181;
   border-radius: 10px;

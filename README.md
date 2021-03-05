@@ -11,11 +11,9 @@
 
 src
 
-＿App 管理路由、設置全域變數
+＿App
 
 ＿components 組件
-
-＿＿Burger 漢堡表單
 
 ＿＿Footer 置底訊息
 
@@ -24,6 +22,8 @@ src
 ＿＿Menu 直列表單
 
 ＿＿Navbar 導覽列
+
+＿＿＿Burger 漢堡表單
 
 ＿＿PostInfoCard 文章資訊
 

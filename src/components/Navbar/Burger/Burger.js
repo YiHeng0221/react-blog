@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { setAuthToken } from "../../utils/auth";
-import { AuthContext } from "../../utils/contexts";
+import { setAuthToken } from "../../../utils/auth";
+import { AuthContext } from "../../../utils/contexts";
 
 const BurgerStyle = styled.button`
   display: flex;
